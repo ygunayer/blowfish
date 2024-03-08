@@ -1,0 +1,56 @@
+{{ define "main" }}
+  <article class="max-w-full">
+    <header>
+      {{ if .Params.showBreadcrumbs | default (.Site.Params.article.showBreadcrumbs | default false) }}
+        {{ partial "breadcrumbs.html" . }}
+      {{ end }}
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        {{ .Title | emojify }}
+      </h1>
+    </header>
+    <section class="max-w-full mt-6 prose dark:prose-invert">
+      {{ .Content | emojify }}
+
+      <nav class="mt-6 grid grid-cols-3 gap-8" style="grid-template-columns: repeat(2, auto); gap: 1em;">
+        <section class="bordered border-right-1 border-sky-200">
+          <h3>By Tag</h3>
+          <ul>
+            {{ range $tag, $terms := .Site.Taxonomies.tags }}
+            <li>
+              <a href="{{ .Page.RelPermalink }}" class="flex not-prose group items-center text-primary-500">
+                <span class="text-inherit group-hover:underline group-hover:!text-white mr-3">
+                  {{ .Page.LinkTitle }}
+                </span>
+                <span class="inline-block text-inherit text-xs px-1 py-0.5 font-semibold border border-primary-500 rounded">
+                  {{ len $terms }} Posts
+                </span>
+              </a>
+            </li>
+            {{ end }}
+          </ul>
+        </section>
+
+        <section>
+          <h3>By Series</h3>
+          <ul>
+            {{ range $tag, $terms := .Site.Taxonomies.series }}
+            <li>
+              <a href="{{ .Page.RelPermalink }}" class="flex not-prose group items-center text-primary-500">
+                <span class="text-inherit group-hover:underline group-hover:!text-white mr-3">
+                  {{ .Page.LinkTitle }}
+                </span>
+                <span class="inline-block text-inherit text-xs px-1 py-0.5 font-semibold border border-primary-500 rounded">
+                  {{ len $terms }} Posts
+                </span>
+              </a>
+            </li>
+            {{ end }}
+          </ul>
+        </section>
+      </nav>
+    </section>
+    <footer class="pt-8">
+      {{ partial "sharing-links.html" . }}
+    </footer>
+  </article>
+{{ end }}
