@@ -72,4 +72,8 @@
   {{ if templates.Exists "partials/extend-footer.html" }}
   {{ partialCached "extend-footer.html" . }}
   {{ end }}
+
+  {{ if .Site.Params.umami.enable | default false }}
+  <script async defer data-website-id="{{ .Site.Params.umami.website_id }}" src="{{ .Site.Params.umami.url }}"></script>
+  {{ end }}
 </footer>
