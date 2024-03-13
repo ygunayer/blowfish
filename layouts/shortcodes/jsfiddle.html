@@ -1,0 +1,10 @@
+{{ $id := .Get "id" }}
+{{ $tabs := default "js,html,result" (.Get "tabs") }}
+{{ $width := default "100%" (.Get "width") }}
+{{ $height := default "250" (.Get "height") }}
+{{ $theme := default "dark" (.Get "theme") }}
+{{ $lazy := default true (.Get "lazy") }}
+
+<div class="not-prose">
+  <iframe {{if $lazy}}loading="lazy"{{end}} src="http://jsfiddle.net/{{ $id }}/embedded/{{ $tabs }}/{{ $theme }}" width="{{ $width }}" height="{{ $height }}"></iframe>
+</div>
